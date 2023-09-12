@@ -1,81 +1,108 @@
 let form = document.querySelector('form')
-form.addEventListener("submit", (event) => {
-    event.preventDefault();
+form.addEventListener("submit", (event) => validate(event))
+
+
+function validate(event) {
+    event.preventDefault()
     manageForm()
-})
+}
 
 function validateFirstName(firstName) {
-    if (firstName.trim().length > 2) {
-        return true
+    if (firstName.value.trim().length < 2) {
+        setErrorMessage(firstName, "Le prénom est trop court.")
+        return false
     }
-    console.log("prenom erreur")
-    return false
+    hideErrorMessage(firstName)
+    return true
 }
 
 function validateLastName(lastName) {
-    if (lastName.trim().length > 2) {
-        return true
+    if (lastName.value.trim().length < 2) {
+        setErrorMessage(lastName, "Le nom est trop court.")
+        return false
     }
-    console.log("nom erreur")
-    return false
+    hideErrorMessage(lastName)
+    return true
 }
 
 function validateEmail(email) {
     let emailRegExp = new RegExp("[a-z0-9._-]+@[a-z0-9._-]+\.[a-z0-9._-]+")
-    if (emailRegExp.test(email)) {
-        return true
+    if (!emailRegExp.test(email.value)) {
+        setErrorMessage(email, "L'adresse email n'est pas valide'")
+        return false
     }
-    console.log("email erreur")
-    return false
+    hideErrorMessage(email)
+    return true
 }
 
 function validateBirthday(birthday) {
-    var dateNaissance = new Date(birthday);
+    var dateNaissance = new Date(birthday.value);
     var dateActuelle = new Date();
-    if (dateNaissance < dateActuelle) {
-        return true;
+    if (birthday === "" || isNaN(dateNaissance) || dateNaissance > dateActuelle) {
+        setErrorMessage(birthday, "La date de naissance n'est pas valide.")
+        return false
     }
-    console.log("birthday erreur")
-    return false
+    hideErrorMessage(birthday)
+    return true
 }
 
 function validateQuantity(quantity) {
-    if (quantity >= 0 && quantity !== "" && quantity <= 99) {
-        return true
+    if (quantity.value < 0 || quantity.value === "" || isNaN(quantity.value) || quantity.value > 99) {
+        setErrorMessage(quantity, "Le nombre de participation est incorrecte.")
+        return false
     }
-    console.log("quantité erreur")
-    return false
+    hideErrorMessage(quantity)
+    return true
 }
 
 function validateLocation(location) {
-    if (location) {
+    let isCheck = false;
+    for (let i = 0; i < location.length; i++) {
+        if (location[i].checked) {
+            isCheck = true
+            break
+        }
+    }
+    if (!isCheck) {
+        setErrorMessage(location[0], "Vous devez sélectionner un tournoi.")
+        return false
+    } else {
+        hideErrorMessage(location[0])
         return true
     }
-    console.log("location erreur")
-    return false
 }
 
 function validateCondition(condition) {
-    if (condition.checked) {
-        return true
+    if (!condition.checked) {
+        setErrorMessage(condition, "Vous devez accepter les conditions générales.")
+        return false
     }
-    console.log("condition erreur")
-    return false
+    hideErrorMessage(condition)
+    return true
 }
 
 function manageForm() {
-    let firstName = document.getElementById("first-name").value
-    let lastName = document.getElementById("last-name").value
-    let email = document.getElementById("email").value
-    let birthday = document.getElementById("birthdate").value
-    let quantity = document.getElementById("quantity").value
-    let location = document.querySelector('input[name="location"]:checked');
-    let condition = document.getElementById("checkbox1")
-
-    if (validateFirstName(firstName) && validateLastName(lastName) && validateEmail(email) && validateBirthday(birthday) && validateQuantity(quantity) && validateLocation(location) && validateCondition(condition)) {
-        console.log("OK")
+    let firstName = validateFirstName(document.getElementById("first-name"))
+    let lastName = validateLastName(document.getElementById("last-name"))
+    let email = validateEmail(document.getElementById("email"))
+    let birthday = validateBirthday(document.getElementById("birthdate"))
+    let quantity = validateQuantity(document.getElementById("quantity"))
+    let location = validateLocation(document.querySelectorAll('input[name="location"]'))
+    let condition = validateCondition(document.getElementById("checkbox1"))
+    if (firstName && lastName && email && birthday && quantity && location && condition) {
+        alert("ok")
     }
     else {
-        console.log("Il y a une ou des erreurs")
+        alert("error")
     }
+}
+
+function setErrorMessage(element, message) {
+    element.parentElement.setAttribute('data-error-visible', 'true')
+    element.parentElement.setAttribute('data-error', message)
+}
+
+function hideErrorMessage(element) {
+    element.parentElement.setAttribute("data-error-visible", "false")
+    element.parentElement.removeAttribute('data-error')
 }
