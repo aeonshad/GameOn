@@ -90,10 +90,8 @@ function manageForm() {
     let location = validateLocation(document.querySelectorAll('input[name="location"]'))
     let condition = validateCondition(document.getElementById("checkbox1"))
     if (firstName && lastName && email && birthday && quantity && location && condition) {
-        alert("ok")
-    }
-    else {
-        alert("error")
+        launchModalValidation()
+        form.reset()
     }
 }
 
