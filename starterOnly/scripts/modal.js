@@ -1,3 +1,4 @@
+// Fonction qui affiche le menu de navigation en version mobile
 function editNav() {
   var x = document.getElementById("myTopnav");
   if (x.className === "topnav") {
@@ -7,7 +8,7 @@ function editNav() {
   }
 }
 
-// DOM Elements
+// Sélection des éléments du DOM nécessaires
 const modalbg = document.querySelector(".bground");
 const modalbgValidation = document.querySelector(".bground-validation");
 const modalBtnValidationClose = document.querySelector(".modal-validation-btn");
@@ -15,25 +16,27 @@ const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 const modalBtnClose = document.querySelectorAll(".close");
 
-// launch modal event
+// Ajout des événements lors des "click" aux boutons d'ouverture de la modal
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
-// launch modal validation event
+// Ajout des événements lors des "click" aux boutons de fermeture de la modal
 modalBtnClose.forEach((span) => span.addEventListener("click", closeModal));
 
+// Ajout d'un événement lors du "click" pour la fermeture de la modal validation
 modalBtnValidationClose.addEventListener("click", closeModal);
 
-// launch modal form
+// Fonction pour afficher la modal
 function launchModal() {
   modalbg.style.display = "block";
 }
 
-// close modal form
+// Fonction pour fermer la modal
 function closeModal() {
   modalbg.style.display = "none";
   modalbgValidation.style.display = "none";
 }
 
+// Fonction pour afficher la modal de validation
 function launchModalValidation() {
   modalbg.style.display = "none";
   modalbgValidation.style.display = "block";

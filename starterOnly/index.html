@@ -5,15 +5,16 @@
   <meta charset="utf-8" />
   <title>Reservation</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <link rel="stylesheet" href="modal.css" />
+  <link rel="stylesheet" href="styles/modal.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link href="https://fonts.googleapis.com/css?family=DM+Sans" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="images/favicon.png">
 </head>
 
 <body>
   <div class="topnav" id="myTopnav">
     <div class="header-logo">
-      <img alt="logo" src="Logo.png" width="auto" height="auto" />
+      <img alt="logo" src="images/Logo.png" width="auto" height="auto" />
     </div>
     <div class="main-navbar">
       <a href="#" class="active"><span>Accueil</span></a>
@@ -43,7 +44,7 @@
         </button>
       </div>
       <div class="hero-img">
-        <img src="./bg_img.jpg" alt="img" />
+        <img src="images/bg_img.jpg" alt="img" />
       </div>
       <button class="btn-signup modal-btn">
         je m'inscris
@@ -54,7 +55,7 @@
       <div class="content">
         <span class="close"></span>
         <div class="modal-body">
-          <form name="reserve" action="index.html" method="get" onsubmit="return validate();">
+          <form name="reserve" action="index.html" method="get" onsubmit="return validate(event);">
             <div class="formData" data-error-visible="false">
               <label for="first-name">Prénom</label><br>
               <input class="text-control" type="text" id="first-name" name="first-name" minlength="2" /><br>
@@ -126,8 +127,7 @@
       <div class="content-validation">
         <span class="close"></span>
         <div class="modal-validation-body">
-          <p class="modal-validation-text">Merci pour
-            votre inscription</p>
+          <p class="modal-validation-text">Merci ! Votre réservation a été reçue.</p>
         </div>
         <div class="">
           <input class="btn-submit modal-validation-btn" type="button" class="button" value="Fermer" />
@@ -140,8 +140,8 @@
       Copyright 2014 - 2022, GameOn Inc.
     </p>
   </footer>
-  <script src="modal.js"></script>
-  <script src="form.js"></script>
+  <script src="scripts/modal.js"></script>
+  <script src="scripts/form.js"></script>
 </body>
 
 </html>
